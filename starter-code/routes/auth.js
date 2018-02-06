@@ -6,7 +6,7 @@ const User = require("../models/User");
 const bcryptSalt = 10;
 
 authRoutes.get("/addUser", (req, res, next) => {
-  res.render("auth/addUser", {user:user});
+  res.render("auth/addUser");
 });
 
 authRoutes.post("/addUser", (req, res, next) => {
