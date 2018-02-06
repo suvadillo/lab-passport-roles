@@ -1,0 +1,46 @@
+<% if(user.role === 'Boss') { %>
+
+  <h2>Add User</h2>
+
+  <form action="/auth/addUser" method="POST" id="form-container">
+    <label for="username">Username</label>
+    <input id="username" type="text" name="username" placeholder="Username">
+    <br>
+    <br>
+    <label for="name">Name</label>
+    <input id="name" type="text" name="name" placeholder="Name">
+    <br>
+    <br>
+    <label for="familyName">Family Name</label>
+    <input id="familyName" type="text" name="familyName" placeholder="Family Name">
+    <br>
+    <br>
+    <label for="password">Password</label>
+    <input id="password" type="password" name="password" placeholder="Your password">
+    <br>
+    <br>
+    <label for="role">User Role</label>
+    <input id="role" type="text" name="role" placeholder="'Boss', 'Developer' or 'TA'">
+
+    <% if (typeof message !== "undefined") { %>
+      <div class="error-message">
+        <%= message %>
+      </div>
+    <% } %>
+    <br>
+    <br>
+
+    <button>Create New User</button>
+
+  </form>
+  <a href="/">Go Home</a>
+<% } else { %>
+  <ul>
+    <li>
+      <a href="/login">Login</a>
+    </li>
+    <li>
+      <a href="/">Go Home</a>
+    </li>
+  </ul>
+<% } %>

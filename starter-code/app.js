@@ -5,11 +5,17 @@ const logger       = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser   = require('body-parser');
 const mongoose     = require("mongoose");
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
+const passportConfig = require('./passport');
+
+const auth = require('./routes/auth');
 
 const app = express();
 
 // Controllers
 const siteController = require("./routes/siteController");
+const coursesController = require("./routes/coursesController");
 
 // Mongoose configuration
 mongoose.connect("mongodb://localhost/ibi-ironhack");
@@ -21,13 +27,30 @@ app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('combined'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: "our-passport-local-strategy-app",
+  resave: true,
+  saveUninitialized: true,
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 24 * 60 * 60 // 1 day
+  })
+}));
+passportConfig(app);
+
+app.use((req,res,next) => {
+  res.locals.user = req.user;
+  next();
+}) 
 
 // Routes
 app.use("/", siteController);
+app.use('/', coursesController);
+app.use('/auth', auth);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

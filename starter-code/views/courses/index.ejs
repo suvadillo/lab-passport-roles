@@ -1,0 +1,30 @@
+<ul>
+  <% courses.forEach((course) => { %>
+    <ul>
+      <li>
+        <%= course.name %>
+      </li>
+      <li>
+        <%= course.startingDate %>
+      </li>
+      <li>
+        <%= course.endDate %>
+      </li>
+      <li>
+        <%= course.level %>
+      </li>
+    </ul>
+    <%  }) %>
+</ul>
+
+</br>
+</br>
+<% if(!user) { %>
+  <ul>
+    <li><a href="/login">Login</a></li>
+  </ul>
+<% } %>
+</br>
+</br>
+
+<a href="/">GO HOME</a>

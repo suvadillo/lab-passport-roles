@@ -8,5 +8,26 @@
 </head>
 <body>
   Hello, Ironhacker!
+
+</br>
+</br>
+</br>
+</br>
+
+<a href="courses/index">CHECK ALL IRONHACK COURSES</a>
+
+<% if(!user) { %>
+  <ul>
+    <li><a href="/auth/login">Login</a></li>
+  </ul>
+<% } else { %>
+  <h2>Hola <%= user.username %></h2>
+</br>
+  <a href="/auth/logout">Logout</a>
+  <% if(user.role === 'Boss') { %>
+    <a href="/auth/addUser">Add User</a>
+    <% } %>
+<% } %>
+
 </body>
 </html>
