@@ -1,0 +1,32 @@
+<ul>
+  <% userProfiles.forEach((profile) => { %>
+    <ul>
+      <li>
+        <%= profile.name %>
+      </li>
+      <li>
+        <%= profile.familyName %>
+      </li>
+      <li>
+        <%= profile.role %>
+      </li>
+      <% if(profile.username === userUs) { %>
+      <li>
+        <a href="edit">Edit my profile</a>
+      </li>
+      <% } %>
+    </ul>
+    <%  }) %>
+</ul>
+
+</br>
+</br>
+<% if(!user) { %>
+  <ul>
+    <li><a href="../auth/login">Login</a></li>
+  </ul>
+<% } %>
+</br>
+</br>
+
+<a href="/">GO HOME</a>

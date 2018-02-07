@@ -1,5 +1,6 @@
 const express = require("express");
 const coursesController = express.Router();
+const User = require("../models/User");
 const Courses = require('../models/Course');
 
 coursesController.get("/courses/index", (req, res, next) => {

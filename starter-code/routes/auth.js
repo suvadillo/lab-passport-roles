@@ -5,10 +5,6 @@ const passport = require('passport')
 const User = require("../models/User");
 const bcryptSalt = 10;
 
-authRoutes.get("/addUser", (req, res, next) => {
-  res.render("auth/addUser");
-});
-
 authRoutes.post("/addUser", (req, res, next) => {
   const username = req.body.username;
   const name = req.body.name;
@@ -56,6 +52,19 @@ authRoutes.post("/login", passport.authenticate("local", {
   successRedirect: "/",
   failureRedirect: "/auth/login"
 }));
+
+authRoutes.get("/addUser", (req, res, next) => {
+  let userRole = req.user;
+  console.log('este es mi requser')
+  console.log(req.user)
+  if (userRole == undefined) {
+    res.render("auth/login");
+  } else if (userRole.role === 'Boss') {
+    res.render("auth/addUser");
+  } else {
+    res.render("auth/login");
+  }
+});
 
 authRoutes.get("/logout", (req, res) => {
   req.logout();

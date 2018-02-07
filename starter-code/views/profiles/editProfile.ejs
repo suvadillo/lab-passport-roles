@@ -1,0 +1,26 @@
+<h2>Welcome <b><%= usr.username %></b></h2>
+<h2>To modify your profile fill in the form below</h2>
+
+<form action="/profiles/edit" method="POST" id="form-container">
+  <label for="username">Username<br>Current username: <%= usr.username %></label> <br>
+  <input id="username" type="text" name="username" placeholder="New Username">
+  <br><br>
+  <label for="name">Name<br>Current Name: <%= usr.name %></label><br>
+  <input id="name" type="text" name="name" placeholder="New Name">
+  <br><br>
+  <label for="familyName">Family Name<br>Current Family Name: <%= usr.familyName %></label><br>
+  <input id="familyName" type="text" name="familyName" placeholder="New Family Name">
+  <br><br>
+  <label for="password">Password</label><br>
+  <!-- <input id="oldPassword" type="password" name="oldPassword" placeholder="Type your old password"><br><br> -->
+  <input id="password" type="password" name="password" placeholder="Type your new password">
+  <!-- <input id="repeatPassword" type="password" name="repeatPassword" placeholder="Repeat your new password"> -->
+
+  <% if (typeof message !== "undefined") { %>
+    <div class="error-message"><%= message %></div>
+  <% } %>
+  <br><br>
+
+  <button>Modify Profile</button>
+
+</form>

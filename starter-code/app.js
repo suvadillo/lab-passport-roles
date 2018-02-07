@@ -9,16 +9,16 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const passportConfig = require('./passport');
 
-const auth = require('./routes/auth');
-
-const app = express();
-
 // Controllers
+const auth = require('./routes/auth');
 const siteController = require("./routes/siteController");
 const coursesController = require("./routes/coursesController");
+const profilesController = require("./routes/profilesController");
 
 // Mongoose configuration
 mongoose.connect("mongodb://localhost/ibi-ironhack");
+
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -44,6 +44,7 @@ passportConfig(app);
 
 app.use((req,res,next) => {
   res.locals.user = req.user;
+  console.log('app res locals user: ' + res.locals.user);
   next();
 }) 
 
@@ -51,6 +52,7 @@ app.use((req,res,next) => {
 app.use("/", siteController);
 app.use('/', coursesController);
 app.use('/auth', auth);
+app.use('/profiles', profilesController);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
